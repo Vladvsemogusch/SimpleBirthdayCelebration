@@ -1,7 +1,8 @@
-package cc.anisimov.vlad.letscelebrate
+package cc.anisimov.vlad.letscelebrate.ui.common
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import cc.anisimov.vlad.letscelebrate.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
