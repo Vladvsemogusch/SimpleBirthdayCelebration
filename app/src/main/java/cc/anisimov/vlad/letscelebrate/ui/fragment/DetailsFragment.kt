@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import cc.anisimov.vlad.letscelebrate.R
 import cc.anisimov.vlad.letscelebrate.domain.model.ImageData
 import cc.anisimov.vlad.letscelebrate.domain.viewmodel.DetailsViewModel
+import cc.anisimov.vlad.letscelebrate.ui.common.setupErrorHandling
 import cc.anisimov.vlad.letscelebrate.util.DateUtils
 import coil.load
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -37,6 +38,7 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUIComponents()
+        setupErrorHandling(viewModel.oError)
     }
 
     private fun setupUIComponents() {
@@ -66,6 +68,10 @@ class DetailsFragment : Fragment() {
 
     private fun setupDatePicker() {
         val calendar: Calendar = Calendar.getInstance()
+        if (viewModel.oBirthdayDate.value==null){
+            viewModel.oError.value = getString(R.string.some_error)
+            return
+        }
         calendar.time = viewModel.oBirthdayDate.value!!
         dpBirthday.init(
             calendar.get(Calendar.YEAR),
@@ -82,6 +88,7 @@ class DetailsFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
             if (data == null || data.data == null) {
+                viewModel.oError.value = getString(R.string.some_error)
                 return
             }
             viewModel.oImageUrl.value = ImageData(null, data.data!!)

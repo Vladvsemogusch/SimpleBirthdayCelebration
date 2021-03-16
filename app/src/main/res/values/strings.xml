@@ -2,4 +2,6 @@
     <string name="app_name">Happy Birthday!</string>
     <string name="details_button_text">Show birthday screen</string>
     <string name="baby_name">Baby\'s Name</string>
+    <string name="error_title">Error</string>
+    <string name="some_error">Sorry, try again</string>
 </resources>

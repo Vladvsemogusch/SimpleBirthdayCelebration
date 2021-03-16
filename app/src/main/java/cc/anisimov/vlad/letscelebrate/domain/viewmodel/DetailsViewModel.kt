@@ -5,20 +5,24 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import cc.anisimov.vlad.letscelebrate.domain.model.ImageData
+import cc.anisimov.vlad.letscelebrate.util.SingleLiveEvent
 import java.util.*
 
 class DetailsViewModel @ViewModelInject constructor() : ViewModel() {
-    companion object{
-        const val DEFAULT_IMAGE_URL = "https://as1.ftcdn.net/jpg/02/91/54/38/1000_F_291543809_26XYk48erTYbRDdu7MxOCOzAyEwtCMK5.jpg"
+    companion object {
+        const val DEFAULT_IMAGE_URL =
+            "https://as1.ftcdn.net/jpg/02/91/54/38/1000_F_291543809_26XYk48erTYbRDdu7MxOCOzAyEwtCMK5.jpg"
     }
+
     //  o for observable
+    val oError = SingleLiveEvent<String?>()
     val oName = MutableLiveData("")
     val oBirthdayDate = MutableLiveData(initialDate)
     val oSubmitEnabled = MediatorLiveData<Boolean?>()
     val oImageUrl = MutableLiveData<ImageData?>()
 
     init {
-        oImageUrl.value = ImageData(DEFAULT_IMAGE_URL,null)
+        oImageUrl.value = ImageData(DEFAULT_IMAGE_URL, null)
         // At least 1 false enough to disable
         oSubmitEnabled.addSource(oName) { newName ->
             oSubmitEnabled.value = if (newName.isEmpty()) {
@@ -32,10 +36,11 @@ class DetailsViewModel @ViewModelInject constructor() : ViewModel() {
         }
     }
 
+    //  Current time
     val initialDate: Date
         get() = Calendar.getInstance().time
 
-
+    //  Current time -12 years
     val minDate: Date
         get() {
             val calendar = Calendar.getInstance()
