@@ -6,5 +6,13 @@
     <fragment
         android:id="@+id/DetailsFragment"
         android:name="cc.anisimov.vlad.letscelebrate.ui.fragment.DetailsFragment"
-        android:label="ImageListFragment" />
+        android:label="ImageListFragment" >
+        <action
+            android:id="@+id/action_DetailsFragment_to_birthdayFragment"
+            app:destination="@id/birthdayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/birthdayFragment"
+        android:name="cc.anisimov.vlad.letscelebrate.ui.fragment.BirthdayFragment"
+        android:label="BirthdayFragment" />
 </navigation>

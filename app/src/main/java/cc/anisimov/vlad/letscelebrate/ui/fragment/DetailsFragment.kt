@@ -48,7 +48,7 @@ class DetailsFragment : Fragment() {
             bSubmit.isEnabled = enable ?: false
         }
         viewModel.oImageUrl.observe(viewLifecycleOwner) { newImageData ->
-            if(newImageData==null){
+            if (newImageData == null) {
                 return@observe
             }
             newImageData.url?.let { ivBabyPhoto.load(it) }
@@ -68,7 +68,7 @@ class DetailsFragment : Fragment() {
 
     private fun setupDatePicker() {
         val calendar: Calendar = Calendar.getInstance()
-        if (viewModel.oBirthdayDate.value==null){
+        if (viewModel.oBirthdayDate.value == null) {
             viewModel.oError.value = getString(R.string.some_error)
             return
         }
