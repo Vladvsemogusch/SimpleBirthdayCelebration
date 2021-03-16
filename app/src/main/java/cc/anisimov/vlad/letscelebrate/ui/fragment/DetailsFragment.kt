@@ -46,6 +46,9 @@ class DetailsFragment : Fragment() {
             bSubmit.isEnabled = enable ?: false
         }
         viewModel.oImageUrl.observe(viewLifecycleOwner) { newImageData ->
+            if(newImageData==null){
+                return@observe
+            }
             newImageData.url?.let { ivBabyPhoto.load(it) }
             newImageData.uri?.let { ivBabyPhoto.load(it) }
         }

@@ -15,10 +15,11 @@ class DetailsViewModel @ViewModelInject constructor() : ViewModel() {
     val oName = MutableLiveData("")
     val oBirthdayDate = MutableLiveData(initialDate)
     val oSubmitEnabled = MediatorLiveData<Boolean?>()
-    val oImageUrl = MutableLiveData<ImageData>()
+    val oImageUrl = MutableLiveData<ImageData?>()
 
     init {
         oImageUrl.value = ImageData(DEFAULT_IMAGE_URL,null)
+        // At least 1 false enough to disable
         oSubmitEnabled.addSource(oName) { newName ->
             oSubmitEnabled.value = if (newName.isEmpty()) {
                 false
