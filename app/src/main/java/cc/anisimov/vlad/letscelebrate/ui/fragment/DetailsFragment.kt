@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import cc.anisimov.vlad.letscelebrate.R
 import cc.anisimov.vlad.letscelebrate.domain.viewmodel.DetailsViewModel
 import cc.anisimov.vlad.letscelebrate.util.DateUtils
+import coil.load
 import kotlinx.android.synthetic.main.fragment_details.*
 import java.util.*
 
@@ -28,14 +29,17 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupFields()
+        setupUIComponents()
     }
 
-    private fun setupFields() {
+    private fun setupUIComponents() {
         etName.addTextChangedListener(NameTextWatcher())
         setupDatePicker()
         viewModel.oSubmitEnabled.observe(viewLifecycleOwner) { enable: Boolean? ->
             bSubmit.isEnabled = enable ?: false
+        }
+        viewModel.oImageUrl.observe(viewLifecycleOwner) { newUrl ->
+            ivBabyPhoto.load(newUrl)
         }
 
     }
