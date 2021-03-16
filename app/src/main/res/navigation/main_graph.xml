@@ -8,11 +8,15 @@
         android:name="cc.anisimov.vlad.letscelebrate.ui.fragment.DetailsFragment"
         android:label="ImageListFragment" >
         <action
-            android:id="@+id/action_DetailsFragment_to_birthdayFragment"
+            android:id="@+id/actionDetailsToBirthday"
             app:destination="@id/birthdayFragment" />
     </fragment>
     <fragment
         android:id="@+id/birthdayFragment"
         android:name="cc.anisimov.vlad.letscelebrate.ui.fragment.BirthdayFragment"
-        android:label="BirthdayFragment" />
+        android:label="BirthdayFragment">
+        <argument
+            android:name="birthdayData"
+            app:argType="cc.anisimov.vlad.letscelebrate.domain.model.BirthdayData" />
+    </fragment>
 </navigation>

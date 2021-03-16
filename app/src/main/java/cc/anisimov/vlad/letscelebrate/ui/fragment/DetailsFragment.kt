@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import cc.anisimov.vlad.letscelebrate.R
 import cc.anisimov.vlad.letscelebrate.domain.model.ImageData
 import cc.anisimov.vlad.letscelebrate.domain.viewmodel.DetailsViewModel
@@ -26,6 +28,7 @@ class DetailsFragment : Fragment() {
     }
 
     private val viewModel: DetailsViewModel by activityViewModels()
+    private lateinit var nav: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,8 +40,20 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        nav = findNavController()
         setupUIComponents()
         setupErrorHandling(viewModel.oError)
+        setupTransitions()
+    }
+
+    private fun setupTransitions() {
+        viewModel.oGoToBirthdayEvent.observe(viewLifecycleOwner) { birthdayData ->
+            if (birthdayData == null) {
+                return@observe
+            }
+            val directions = DetailsFragmentDirections.actionDetailsToBirthday(birthdayData)
+            nav.navigate(directions)
+        }
     }
 
     private fun setupUIComponents() {
@@ -47,7 +62,7 @@ class DetailsFragment : Fragment() {
         viewModel.oSubmitEnabled.observe(viewLifecycleOwner) { enable: Boolean? ->
             bSubmit.isEnabled = enable ?: false
         }
-        viewModel.oImageUrl.observe(viewLifecycleOwner) { newImageData ->
+        viewModel.oImageData.observe(viewLifecycleOwner) { newImageData ->
             if (newImageData == null) {
                 return@observe
             }
@@ -55,6 +70,7 @@ class DetailsFragment : Fragment() {
             newImageData.uri?.let { ivBabyPhoto.load(it) }
         }
         setupChooseImage()
+        bSubmit.setOnClickListener { viewModel.onSubmit() }
     }
 
     private fun setupChooseImage() {
@@ -91,7 +107,7 @@ class DetailsFragment : Fragment() {
                 viewModel.oError.value = getString(R.string.some_error)
                 return
             }
-            viewModel.oImageUrl.value = ImageData(null, data.data!!)
+            viewModel.oImageData.value = ImageData(null, data.data!!)
         }
     }
 
