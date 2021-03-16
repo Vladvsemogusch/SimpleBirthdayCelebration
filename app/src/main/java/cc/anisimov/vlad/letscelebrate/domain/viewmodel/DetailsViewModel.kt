@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import cc.anisimov.vlad.letscelebrate.domain.model.ImageData
 import java.util.*
 
 class DetailsViewModel @ViewModelInject constructor() : ViewModel() {
@@ -14,10 +15,10 @@ class DetailsViewModel @ViewModelInject constructor() : ViewModel() {
     val oName = MutableLiveData("")
     val oBirthdayDate = MutableLiveData(initialDate)
     val oSubmitEnabled = MediatorLiveData<Boolean?>()
-    val oImageUrl = MutableLiveData<String>()
+    val oImageUrl = MutableLiveData<ImageData>()
 
     init {
-        oImageUrl.value = DEFAULT_IMAGE_URL
+        oImageUrl.value = ImageData(DEFAULT_IMAGE_URL,null)
         oSubmitEnabled.addSource(oName) { newName ->
             oSubmitEnabled.value = if (newName.isEmpty()) {
                 false

@@ -1,5 +1,7 @@
 package cc.anisimov.vlad.letscelebrate.ui.fragment
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import cc.anisimov.vlad.letscelebrate.R
+import cc.anisimov.vlad.letscelebrate.domain.model.ImageData
 import cc.anisimov.vlad.letscelebrate.domain.viewmodel.DetailsViewModel
 import cc.anisimov.vlad.letscelebrate.util.DateUtils
 import coil.load
@@ -17,6 +20,10 @@ import java.util.*
 
 
 class DetailsFragment : Fragment() {
+    companion object {
+        const val PICK_IMAGE: Int = 1
+    }
+
     private val viewModel: DetailsViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -38,10 +45,20 @@ class DetailsFragment : Fragment() {
         viewModel.oSubmitEnabled.observe(viewLifecycleOwner) { enable: Boolean? ->
             bSubmit.isEnabled = enable ?: false
         }
-        viewModel.oImageUrl.observe(viewLifecycleOwner) { newUrl ->
-            ivBabyPhoto.load(newUrl)
+        viewModel.oImageUrl.observe(viewLifecycleOwner) { newImageData ->
+            newImageData.url?.let { ivBabyPhoto.load(it) }
+            newImageData.uri?.let { ivBabyPhoto.load(it) }
         }
+        setupChooseImage()
+    }
 
+    private fun setupChooseImage() {
+        ivBabyPhoto.setOnClickListener {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE)
+        }
     }
 
     private fun setupDatePicker() {
@@ -57,6 +74,15 @@ class DetailsFragment : Fragment() {
         }
         dpBirthday.maxDate = viewModel.initialDate.time
         dpBirthday.minDate = viewModel.minDate.time
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+            if (data == null || data.data == null) {
+                return
+            }
+            viewModel.oImageUrl.value = ImageData(null, data.data!!)
+        }
     }
 
 
