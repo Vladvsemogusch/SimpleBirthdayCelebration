@@ -1,7 +1,6 @@
 package cc.anisimov.vlad.letscelebrate.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import cc.anisimov.vlad.letscelebrate.R
+import cc.anisimov.vlad.letscelebrate.domain.model.Age
 import cc.anisimov.vlad.letscelebrate.domain.viewmodel.BirthdayViewModel
 import cc.anisimov.vlad.letscelebrate.ui.common.setupErrorHandling
+import kotlinx.android.synthetic.main.fragment_birthday.*
 
 class BirthdayFragment : Fragment() {
     private val viewModel: BirthdayViewModel by activityViewModels()
@@ -31,8 +32,50 @@ class BirthdayFragment : Fragment() {
     }
 
     private fun setupUIComponents() {
-        viewModel.oAge.observe(viewLifecycleOwner){
-
+        viewModel.oAge.observe(viewLifecycleOwner) { age: Age? ->
+            if (age == null) {
+                return@observe
+            }
+            val imageResId = if (age.years == 0 || (age.years == 1 && age.months == 0)) {
+                when (age.months) {
+                    0 -> R.drawable.n0
+                    1 -> R.drawable.n1
+                    2 -> R.drawable.n2
+                    3 -> R.drawable.n3
+                    4 -> R.drawable.n4
+                    5 -> R.drawable.n5
+                    6 -> R.drawable.n6
+                    7 -> R.drawable.n7
+                    8 -> R.drawable.n8
+                    9 -> R.drawable.n9
+                    10 -> R.drawable.n10
+                    11 -> R.drawable.n11
+                    12 -> R.drawable.n12
+                    else -> throw IllegalArgumentException("Month ${age.months} doesn't exist")
+                }
+            } else if (age.years == 1 && age.months in 6..11) {
+                R.drawable.n1_half
+            } else if (age.years < 12) {
+                when (age.years) {
+                    0 -> R.drawable.n0
+                    1 -> R.drawable.n1
+                    2 -> R.drawable.n2
+                    3 -> R.drawable.n3
+                    4 -> R.drawable.n4
+                    5 -> R.drawable.n5
+                    6 -> R.drawable.n6
+                    7 -> R.drawable.n7
+                    8 -> R.drawable.n8
+                    9 -> R.drawable.n9
+                    10 -> R.drawable.n10
+                    11 -> R.drawable.n11
+                    12 -> R.drawable.n12
+                    else -> throw IllegalArgumentException("Something went horribly wrong")
+                }
+            } else {
+                throw IllegalArgumentException("Ages above 12 are not supported")
+            }
+            ivAge.setImageResource(imageResId)
         }
     }
 
