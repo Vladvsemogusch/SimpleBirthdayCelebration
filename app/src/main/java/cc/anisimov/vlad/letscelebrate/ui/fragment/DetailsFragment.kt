@@ -18,7 +18,6 @@ import cc.anisimov.vlad.letscelebrate.domain.viewmodel.DetailsViewModel
 import cc.anisimov.vlad.letscelebrate.ui.common.setupErrorHandling
 import cc.anisimov.vlad.letscelebrate.util.DateUtils
 import cc.anisimov.vlad.letscelebrate.util.load
-import coil.load
 import kotlinx.android.synthetic.main.fragment_birthday.*
 import kotlinx.android.synthetic.main.fragment_details.*
 import java.util.*
@@ -108,7 +107,7 @@ class DetailsFragment : Fragment() {
                 viewModel.oError.value = getString(R.string.some_error)
                 return
             }
-            viewModel.oImageData.value = ImageData(null, data.data!!)
+            viewModel.oImageData.value = ImageData(uri = data.data!!)
         }
     }
 

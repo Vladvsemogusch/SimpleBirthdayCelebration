@@ -30,7 +30,7 @@ class DetailsViewModel @ViewModelInject constructor(@ApplicationContext val appC
     val oGoToBirthdayEvent = SingleLiveEvent<BirthdayData>()
 
     init {
-        oImageData.value = ImageData(DEFAULT_IMAGE_URL, null)
+        oImageData.value = ImageData(url = DEFAULT_IMAGE_URL)
         // At least 1 false enough to disable
         oSubmitEnabled.addSource(oName) { newName ->
             oSubmitEnabled.value = if (newName.isEmpty()) {

@@ -31,6 +31,8 @@ class BirthdayFragment : Fragment() {
     private val viewModel: BirthdayViewModel by activityViewModels()
     private val birthdayFragmentArgs: BirthdayFragmentArgs by navArgs()
     private lateinit var nav: NavController
+    private var imagePlaceholderResId: Int = 0
+    private var cameraIconResId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,8 +51,8 @@ class BirthdayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         nav = findNavController()
         setupErrorHandling(viewModel.oError)
-        setupUIComponents()
         setupUIOption()
+        setupUIComponents()
     }
 
     private fun setupUIComponents() {
@@ -61,7 +63,7 @@ class BirthdayFragment : Fragment() {
             if (newImageData == null) {
                 return@observe
             }
-            ivChildImage.load(newImageData)
+            ivChildImage.load(newImageData,imagePlaceholderResId)
         }
         rlCameraContainer.post { setupCameraButton() }
     }
@@ -125,30 +127,29 @@ class BirthdayFragment : Fragment() {
     private fun setupUIOption() {
         val backgroundImageRes: Int
         val generalBackgroundColorId: Int
-        val cameraIconId: Int
         when (viewModel.uiOption) {
             UIOption.Fox -> {
                 backgroundImageRes = R.drawable.android_fox_popup_wide
                 generalBackgroundColorId = R.color.fox_bg
-                cameraIconId = R.drawable.camera_icon_green
+                cameraIconResId = R.drawable.camera_icon_green
+                imagePlaceholderResId=R.drawable.default_place_holder_green
             }
             UIOption.Elephant -> {
                 backgroundImageRes = R.drawable.android_elephant_popup_wide
                 generalBackgroundColorId = R.color.elephant_bg
-                cameraIconId = R.drawable.camera_icon_yellow
+                cameraIconResId = R.drawable.camera_icon_yellow
+                imagePlaceholderResId=R.drawable.default_place_holder_yellow
             }
             UIOption.Pelican -> {
                 backgroundImageRes = R.drawable.android_pelican_popup_wide
                 generalBackgroundColorId = R.color.pelican_bg
-                cameraIconId = R.drawable.camera_icon_blue
+                cameraIconResId = R.drawable.camera_icon_blue
+                imagePlaceholderResId=R.drawable.default_place_holder_blue
             }
         }
         ivThemeBackground.setImageResource(backgroundImageRes)
         val resolvedColor = ResourcesCompat.getColor(resources, generalBackgroundColorId, null)
         clContainer.setBackgroundColor(resolvedColor)
-        // Wait until ivCamera is placed
-        rlCameraContainer.post { ivCamera.setImageResource(cameraIconId) }
-
     }
 
     private fun setupCameraButton() {
@@ -164,6 +165,9 @@ class BirthdayFragment : Fragment() {
         params.leftMargin = containerWidth * 11 / 16 - cameraViewWidthPx / 2
         params.topMargin = (containerHeight - containerHeight * 11 / 16) - cameraViewHeightPx / 2
         rlCameraContainer.addView(cameraButtonView, params)
+        cameraButtonView.setOnClickListener { viewModel.onCameraClick() }
+        ivCamera.setImageResource(cameraIconResId)
     }
+
 
 }

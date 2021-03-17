@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ImageData(
-    val url: String?,
-    val uri: Uri?
+    val url: String? = null,
+    val uri: Uri? = null
 ) : Parcelable
