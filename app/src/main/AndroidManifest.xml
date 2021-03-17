@@ -10,7 +10,8 @@
         android:name=".ui.common.BaseApp"
         android:supportsRtl="true"
         android:theme="@style/Theme.LetsCelebrate">
-        <activity android:name=".ui.common.MainActivity">
+        <activity android:name=".ui.common.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
