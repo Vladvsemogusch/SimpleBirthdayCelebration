@@ -17,7 +17,9 @@ import cc.anisimov.vlad.letscelebrate.domain.model.ImageData
 import cc.anisimov.vlad.letscelebrate.domain.viewmodel.DetailsViewModel
 import cc.anisimov.vlad.letscelebrate.ui.common.setupErrorHandling
 import cc.anisimov.vlad.letscelebrate.util.DateUtils
+import cc.anisimov.vlad.letscelebrate.util.load
 import coil.load
+import kotlinx.android.synthetic.main.fragment_birthday.*
 import kotlinx.android.synthetic.main.fragment_details.*
 import java.util.*
 
@@ -66,8 +68,7 @@ class DetailsFragment : Fragment() {
             if (newImageData == null) {
                 return@observe
             }
-            newImageData.url?.let { ivBabyPhoto.load(it) }
-            newImageData.uri?.let { ivBabyPhoto.load(it) }
+            ivBabyPhoto.load(newImageData)
         }
         setupChooseImage()
         bSubmit.setOnClickListener { viewModel.onSubmit() }

@@ -15,6 +15,7 @@ import cc.anisimov.vlad.letscelebrate.domain.model.Age
 import cc.anisimov.vlad.letscelebrate.domain.viewmodel.BirthdayViewModel
 import cc.anisimov.vlad.letscelebrate.domain.viewmodel.BirthdayViewModel.*
 import cc.anisimov.vlad.letscelebrate.ui.common.setupErrorHandling
+import cc.anisimov.vlad.letscelebrate.util.load
 import kotlinx.android.synthetic.main.fragment_birthday.*
 
 class BirthdayFragment : Fragment() {
@@ -47,6 +48,13 @@ class BirthdayFragment : Fragment() {
         setupAgeIndicator()
         tvTodayNameIs.text = getString(R.string.today_x_old, viewModel.name)
         bClose.setOnClickListener { nav.navigateUp() }
+        viewModel.oImageData.observe(viewLifecycleOwner){ newImageData ->
+            if (newImageData == null) {
+              return@observe
+            }
+            ivChildImage.load(newImageData)
+        }
+
     }
 
     private fun setupAgeIndicator() {
