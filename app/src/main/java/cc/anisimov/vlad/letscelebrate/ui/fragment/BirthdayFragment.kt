@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import cc.anisimov.vlad.letscelebrate.R
 import cc.anisimov.vlad.letscelebrate.domain.model.Age
 import cc.anisimov.vlad.letscelebrate.domain.viewmodel.BirthdayViewModel
+import cc.anisimov.vlad.letscelebrate.domain.viewmodel.BirthdayViewModel.*
 import cc.anisimov.vlad.letscelebrate.ui.common.setupErrorHandling
 import kotlinx.android.synthetic.main.fragment_birthday.*
 
@@ -24,11 +26,16 @@ class BirthdayFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_birthday, container, false)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.initWith(birthdayFragmentArgs.birthdayData)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.initWith(birthdayFragmentArgs.birthdayData)
         setupErrorHandling(viewModel.oError)
         setupUIComponents()
+        setupUIOption()
     }
 
     private fun setupUIComponents() {
@@ -90,6 +97,28 @@ class BirthdayFragment : Fragment() {
             tvPeriodName.text = getString(R.string.period_old, periodName)
             ivAge.setImageResource(imageResId)
         }
+    }
+
+    private fun setupUIOption() {
+        val backgroundImageRes: Int
+        val generalBackgroundColorId: Int
+        when (viewModel.uiOption) {
+            UIOption.Fox -> {
+                backgroundImageRes = R.drawable.android_fox_popup_wide
+                generalBackgroundColorId = R.color.fox_bg
+            }
+            UIOption.Elephant -> {
+                backgroundImageRes = R.drawable.android_elephant_popup_wide
+                generalBackgroundColorId = R.color.elephant_bg
+            }
+            UIOption.Pelican -> {
+                backgroundImageRes = R.drawable.android_pelican_popup_wide
+                generalBackgroundColorId = R.color.pelican_bg
+            }
+        }
+        ivThemeBackground.setImageResource(backgroundImageRes)
+        val resolvedColor = ResourcesCompat.getColor(resources, generalBackgroundColorId, null)
+        clContainer.setBackgroundColor(resolvedColor)
     }
 
 }
