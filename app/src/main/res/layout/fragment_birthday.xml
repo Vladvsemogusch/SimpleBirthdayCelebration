@@ -50,6 +50,24 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/n0" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/left_swirls"
+        android:layout_marginEnd="@dimen/small_vertical_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/ivAge"
+        app:layout_constraintEnd_toStartOf="@+id/ivAge"
+        app:layout_constraintTop_toTopOf="@+id/ivAge" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_vertical_margin"
+        android:src="@drawable/right_swirls"
+        app:layout_constraintBottom_toBottomOf="@+id/ivAge"
+        app:layout_constraintStart_toEndOf="@+id/ivAge"
+        app:layout_constraintTop_toTopOf="@+id/ivAge" />
+
     <TextView
         android:id="@+id/tvPeriodName"
         style="@style/SubtitleText"
