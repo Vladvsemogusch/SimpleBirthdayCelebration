@@ -1,6 +1,7 @@
 package cc.anisimov.vlad.letscelebrate.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,13 @@ class BirthdayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.initWith(birthdayFragmentArgs.birthdayData)
         setupErrorHandling(viewModel.oError)
+        setupUIComponents()
+    }
+
+    private fun setupUIComponents() {
+        viewModel.oAge.observe(viewLifecycleOwner){
+
+        }
     }
 
 }
