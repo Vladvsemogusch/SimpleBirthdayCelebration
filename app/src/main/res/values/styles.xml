@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="DatePickerSpinnerStyle" parent="@android:style/Widget.Material.DatePicker">
         <item name="android:datePickerMode">spinner</item>
         <item name="android:calendarViewShown">false</item>
@@ -9,5 +10,11 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="ShareButtonText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/main_pink</item>
+
     </style>
 </resources>

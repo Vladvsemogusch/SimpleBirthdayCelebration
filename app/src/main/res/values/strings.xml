@@ -6,5 +6,6 @@
     <string name="some_error">Sorry, something unexpected (as always) happened, try again</string>
     <string name="period_old">%1$s old!</string>
     <string name="today_x_old">today %1$s is</string>
+    <string name="share_text">Share the news</string>
 
 </resources>

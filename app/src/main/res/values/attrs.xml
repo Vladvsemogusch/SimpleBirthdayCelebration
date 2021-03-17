@@ -1,0 +1,5 @@
+<resources>
+    <declare-styleable name="ShareButton">
+        <attr name="titleText" format="string" localization="suggested" />
+    </declare-styleable>
+</resources>

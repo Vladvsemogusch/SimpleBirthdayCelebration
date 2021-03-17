@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/tvShareButtonTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/ShareButtonText"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginTop="6dp"
+        tools:text="test" />
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:src="@drawable/ic_share_pink" />
+
+</merge>

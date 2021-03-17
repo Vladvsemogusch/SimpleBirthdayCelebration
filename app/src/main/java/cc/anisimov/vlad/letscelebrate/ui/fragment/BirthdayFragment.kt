@@ -132,19 +132,19 @@ class BirthdayFragment : Fragment() {
                 backgroundImageRes = R.drawable.android_fox_popup_wide
                 generalBackgroundColorId = R.color.fox_bg
                 cameraIconResId = R.drawable.camera_icon_green
-                imagePlaceholderResId=R.drawable.default_place_holder_green
+                imagePlaceholderResId = R.drawable.default_place_holder_green
             }
             UIOption.Elephant -> {
                 backgroundImageRes = R.drawable.android_elephant_popup_wide
                 generalBackgroundColorId = R.color.elephant_bg
                 cameraIconResId = R.drawable.camera_icon_yellow
-                imagePlaceholderResId=R.drawable.default_place_holder_yellow
+                imagePlaceholderResId = R.drawable.default_place_holder_yellow
             }
             UIOption.Pelican -> {
                 backgroundImageRes = R.drawable.android_pelican_popup_wide
                 generalBackgroundColorId = R.color.pelican_bg
                 cameraIconResId = R.drawable.camera_icon_blue
-                imagePlaceholderResId=R.drawable.default_place_holder_blue
+                imagePlaceholderResId = R.drawable.default_place_holder_blue
             }
         }
         ivThemeBackground.setImageResource(backgroundImageRes)
