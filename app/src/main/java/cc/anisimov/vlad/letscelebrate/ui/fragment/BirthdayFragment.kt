@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,13 +17,21 @@ import cc.anisimov.vlad.letscelebrate.domain.viewmodel.BirthdayViewModel
 import cc.anisimov.vlad.letscelebrate.domain.viewmodel.BirthdayViewModel.*
 import cc.anisimov.vlad.letscelebrate.ui.common.setupErrorHandling
 import cc.anisimov.vlad.letscelebrate.util.load
+import cc.anisimov.vlad.letscelebrate.util.toPx
 import kotlinx.android.synthetic.main.fragment_birthday.*
+import kotlinx.android.synthetic.main.view_button_camera.*
+
 
 class BirthdayFragment : Fragment() {
+    companion object {
+        const val CAMERA_VIEW_WIDTH_DP = 32
+        const val CAMERA_VIEW_HEIGHT_DP = 32
+    }
+
     private val viewModel: BirthdayViewModel by activityViewModels()
     private val birthdayFragmentArgs: BirthdayFragmentArgs by navArgs()
     private lateinit var nav: NavController
-    
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,14 +56,14 @@ class BirthdayFragment : Fragment() {
     private fun setupUIComponents() {
         setupAgeIndicator()
         tvTodayNameIs.text = getString(R.string.today_x_old, viewModel.name)
-        bClose.setOnClickListener { nav.navigateUp() }
-        viewModel.oImageData.observe(viewLifecycleOwner){ newImageData ->
+        ivClose.setOnClickListener { nav.navigateUp() }
+        viewModel.oImageData.observe(viewLifecycleOwner) { newImageData ->
             if (newImageData == null) {
-              return@observe
+                return@observe
             }
             ivChildImage.load(newImageData)
         }
-
+        rlCameraContainer.post { setupCameraButton() }
     }
 
     private fun setupAgeIndicator() {
@@ -116,23 +125,45 @@ class BirthdayFragment : Fragment() {
     private fun setupUIOption() {
         val backgroundImageRes: Int
         val generalBackgroundColorId: Int
+        val cameraIconId: Int
         when (viewModel.uiOption) {
             UIOption.Fox -> {
                 backgroundImageRes = R.drawable.android_fox_popup_wide
                 generalBackgroundColorId = R.color.fox_bg
+                cameraIconId = R.drawable.camera_icon_green
             }
             UIOption.Elephant -> {
                 backgroundImageRes = R.drawable.android_elephant_popup_wide
                 generalBackgroundColorId = R.color.elephant_bg
+                cameraIconId = R.drawable.camera_icon_yellow
             }
             UIOption.Pelican -> {
                 backgroundImageRes = R.drawable.android_pelican_popup_wide
                 generalBackgroundColorId = R.color.pelican_bg
+                cameraIconId = R.drawable.camera_icon_blue
             }
         }
         ivThemeBackground.setImageResource(backgroundImageRes)
         val resolvedColor = ResourcesCompat.getColor(resources, generalBackgroundColorId, null)
         clContainer.setBackgroundColor(resolvedColor)
+        // Wait until ivCamera is placed
+        rlCameraContainer.post { ivCamera.setImageResource(cameraIconId) }
+
+    }
+
+    private fun setupCameraButton() {
+        //  Find photo frame circle perimeter coordinates for 45 degrees
+        val cameraButtonView: View =
+            layoutInflater.inflate(R.layout.view_button_camera, rlCameraContainer, false)
+        val containerWidth = rlCameraContainer.width
+        val containerHeight = rlCameraContainer.height
+        val cameraViewWidthPx = CAMERA_VIEW_WIDTH_DP.toPx(requireContext())
+        val cameraViewHeightPx = CAMERA_VIEW_HEIGHT_DP.toPx(requireContext())
+        val params = RelativeLayout.LayoutParams(cameraViewWidthPx, cameraViewHeightPx)
+        // Let's place camera view on rlCameraContainer diagonal. rlCameraContainer is a square
+        params.leftMargin = containerWidth * 11 / 16 - cameraViewWidthPx / 2
+        params.topMargin = (containerHeight - containerHeight * 11 / 16) - cameraViewHeightPx / 2
+        rlCameraContainer.addView(cameraButtonView, params)
     }
 
 }

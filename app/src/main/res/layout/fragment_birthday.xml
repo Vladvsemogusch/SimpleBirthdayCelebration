@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/clContainer"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_marginBottom="82dp"
-        tools:src="@drawable/n0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        tools:src="@drawable/n0" />
 
     <ImageView
         android:id="@+id/ivThemeBackground"
@@ -25,6 +24,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:src="@drawable/android_pelican_popup_wide" />
+
     <TextView
         android:id="@+id/tvTodayNameIs"
         style="@style/SubtitleText"
@@ -53,8 +53,8 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/left_swirls"
         android:layout_marginEnd="@dimen/small_vertical_margin"
+        android:src="@drawable/left_swirls"
         app:layout_constraintBottom_toBottomOf="@+id/ivAge"
         app:layout_constraintEnd_toStartOf="@+id/ivAge"
         app:layout_constraintTop_toTopOf="@+id/ivAge" />
@@ -80,7 +80,7 @@
         tools:text="MONTHS OLD" />
 
     <ImageView
-        android:id="@+id/bClose"
+        android:id="@+id/ivClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -90,4 +90,13 @@
         android:src="@drawable/btn_close_blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/rlCameraContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
