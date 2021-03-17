@@ -63,7 +63,7 @@ class BirthdayFragment : Fragment() {
             if (newImageData == null) {
                 return@observe
             }
-            ivChildImage.load(newImageData,imagePlaceholderResId)
+            ivChildImage.load(newImageData,imagePlaceholderResId,viewModel.oError)
         }
         rlCameraContainer.post { setupCameraButton() }
     }

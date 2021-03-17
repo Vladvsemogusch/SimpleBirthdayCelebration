@@ -67,7 +67,7 @@ class DetailsFragment : Fragment() {
             if (newImageData == null) {
                 return@observe
             }
-            ivBabyPhoto.load(newImageData)
+            ivBabyPhoto.load(newImageData, oError = viewModel.oError)
         }
         setupChooseImage()
         bSubmit.setOnClickListener { viewModel.onSubmit() }

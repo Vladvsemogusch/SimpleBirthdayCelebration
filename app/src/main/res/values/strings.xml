@@ -3,7 +3,7 @@
     <string name="details_button_text">Show birthday screen</string>
     <string name="baby_name">Baby\'s Name</string>
     <string name="error_title">Error</string>
-    <string name="some_error">Sorry, try again</string>
+    <string name="some_error">Sorry, something unexpected (as always) happened, try again</string>
     <string name="period_old">%1$s old!</string>
     <string name="today_x_old">today %1$s is</string>
 
