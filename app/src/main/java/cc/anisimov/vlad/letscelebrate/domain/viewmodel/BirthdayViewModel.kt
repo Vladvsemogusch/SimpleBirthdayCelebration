@@ -12,12 +12,12 @@ import cc.anisimov.vlad.letscelebrate.util.SingleLiveEvent
 class BirthdayViewModel @ViewModelInject constructor() : ViewModel() {
 
     val oError = SingleLiveEvent<String?>()
-    val oName = MutableLiveData("")
+    lateinit var name :String
     val oImageData = MutableLiveData<ImageData?>()
     val oAge = MutableLiveData<Age?>()
 
     fun initWith(birthdayData: BirthdayData) {
-        oName.value = birthdayData.name
+        name = birthdayData.name
         oImageData.value = birthdayData.imageData
         oAge.value = DateUtils.getAge(birthdayData.birthdayDate)
     }

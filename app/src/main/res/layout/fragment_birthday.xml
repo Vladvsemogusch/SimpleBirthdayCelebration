@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvTodayNameIs"
+        style="@style/SubtitleText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_vertical_margin"
+        android:gravity="center"
+        android:maxLines="2"
+        app:layout_constraintBottom_toTopOf="@+id/ivAge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Chri Ro today isasdasd" />
 
     <ImageView
         android:id="@+id/ivAge"
@@ -14,20 +26,20 @@
         android:scaleType="fitCenter"
         tools:src="@drawable/n0"
         android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/n0" />
 
     <TextView
         android:id="@+id/tvPeriodName"
+        style="@style/SubtitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/small_vertical_margin"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:textSize="22sp"
-        tools:text="MONTHS OLD"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivAge" />
+        app:layout_constraintTop_toBottomOf="@+id/ivAge"
+        tools:text="MONTHS OLD" />
 </androidx.constraintlayout.widget.ConstraintLayout>

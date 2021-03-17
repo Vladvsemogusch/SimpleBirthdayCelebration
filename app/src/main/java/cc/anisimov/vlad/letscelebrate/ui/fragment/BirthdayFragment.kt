@@ -32,16 +32,21 @@ class BirthdayFragment : Fragment() {
     }
 
     private fun setupUIComponents() {
+        setupAgeIndicator()
+        tvTodayNameIs.text = getString(R.string.today_x_old, viewModel.name)
+    }
+
+    private fun setupAgeIndicator() {
         viewModel.oAge.observe(viewLifecycleOwner) { age: Age? ->
             if (age == null) {
                 return@observe
             }
             val periodName: String
             val imageResId = if (age.years == 0 || (age.years == 1 && age.months == 0)) {
-                periodName = resources.getQuantityString(R.plurals.month,age.months)
-                if (age.years==1){
+                periodName = resources.getQuantityString(R.plurals.month, age.months)
+                if (age.years == 1) {
                     R.drawable.n12
-                }else {
+                } else {
                     when (age.months) {
                         0 -> R.drawable.n0
                         1 -> R.drawable.n1
@@ -59,10 +64,10 @@ class BirthdayFragment : Fragment() {
                     }
                 }
             } else if (age.years == 1 && age.months in 6..11) {
-                periodName = resources.getQuantityString(R.plurals.year,age.years)
+                periodName = resources.getQuantityString(R.plurals.year, age.years)
                 R.drawable.n1_half
             } else if (age.years < 12) {
-                periodName = resources.getQuantityString(R.plurals.year,age.years)
+                periodName = resources.getQuantityString(R.plurals.year, age.years)
                 when (age.years) {
                     0 -> R.drawable.n0
                     1 -> R.drawable.n1

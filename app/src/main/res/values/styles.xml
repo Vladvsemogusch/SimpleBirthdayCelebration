@@ -4,4 +4,10 @@
         <item name="android:datePickerMode">spinner</item>
         <item name="android:calendarViewShown">false</item>
     </style>
+
+    <style name="SubtitleText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
 </resources>
