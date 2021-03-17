@@ -12,13 +12,15 @@ import coil.request.ImageRequest
 fun ImageView.load(
     imageData: ImageData,
     @DrawableRes placeholderResId: Int? = R.drawable.default_place_holder_blue,
-    oError: MutableLiveData<String?>
+    oError: MutableLiveData<String?>,
+    allowHardware: Boolean = true
 ) {
     val configureImageRequestBuilder: ImageRequest.Builder.() -> Unit = {
         crossfade(true)
         placeholderResId?.let {
             placeholder(placeholderResId)
             error(placeholderResId)
+            allowHardware(allowHardware)
         }
         listener(onError = { _, _ ->
             oError.value = resources.getString(R.string.some_error)

@@ -1,8 +1,13 @@
 package cc.anisimov.vlad.letscelebrate.ui.fragment
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.MeasureSpec
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.core.content.res.ResourcesCompat
@@ -19,7 +24,9 @@ import cc.anisimov.vlad.letscelebrate.ui.common.setupErrorHandling
 import cc.anisimov.vlad.letscelebrate.util.load
 import cc.anisimov.vlad.letscelebrate.util.toPx
 import kotlinx.android.synthetic.main.fragment_birthday.*
+import kotlinx.android.synthetic.main.fragment_birthday.view.*
 import kotlinx.android.synthetic.main.view_button_camera.*
+import kotlinx.android.synthetic.main.view_button_camera.view.*
 
 
 class BirthdayFragment : Fragment() {
@@ -63,9 +70,10 @@ class BirthdayFragment : Fragment() {
             if (newImageData == null) {
                 return@observe
             }
-            ivChildImage.load(newImageData,imagePlaceholderResId,viewModel.oError)
+            ivChildImage.load(newImageData, imagePlaceholderResId, viewModel.oError, false)
         }
         rlCameraContainer.post { setupCameraButton() }
+        bShare.setOnClickListener { takeCustomScreenshot() }
     }
 
     private fun setupAgeIndicator() {
@@ -169,5 +177,35 @@ class BirthdayFragment : Fragment() {
         ivCamera.setImageResource(cameraIconResId)
     }
 
+    private fun takeCustomScreenshot(): Bitmap {
+        val metrics = resources.displayMetrics
+        val bitmap = Bitmap.createBitmap(
+            metrics.widthPixels,
+            metrics.heightPixels, Bitmap.Config.ARGB_8888
+        )
+        val inflater =
+            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view: View = inflater.inflate(R.layout.fragment_birthday, null)
+        prepareScreenshotView(view)
+        val canvas = Canvas(bitmap)
+        view.measure(
+            MeasureSpec.makeMeasureSpec(canvas.width, MeasureSpec.EXACTLY),
+            MeasureSpec.makeMeasureSpec(canvas.height, MeasureSpec.EXACTLY)
+        )
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+        view.draw(canvas)
+        return bitmap
+    }
 
+    private fun prepareScreenshotView(view: View) {
+        view.tvTodayNameIs.text = tvTodayNameIs.text
+        view.ivAge.setImageDrawable(ivAge.drawable)
+        view.tvPeriodName.text = tvPeriodName.text
+        view.ivChildImage.setImageDrawable(ivChildImage.drawable)
+        view.clContainer.background = clContainer.background
+        view.ivThemeBackground.setImageDrawable(ivThemeBackground.drawable)
+        view.ivClose.visibility = GONE
+        view.bShare.visibility = GONE
+        //  ivCamera is added programmatically
+    }
 }
