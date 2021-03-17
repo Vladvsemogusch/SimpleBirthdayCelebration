@@ -4,4 +4,6 @@
     <string name="baby_name">Baby\'s Name</string>
     <string name="error_title">Error</string>
     <string name="some_error">Sorry, try again</string>
+    <string name="period_old">%1$s old!</string>
+
 </resources>
