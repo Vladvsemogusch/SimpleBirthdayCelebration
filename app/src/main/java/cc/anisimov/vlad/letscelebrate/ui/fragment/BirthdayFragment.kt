@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cc.anisimov.vlad.letscelebrate.R
 import cc.anisimov.vlad.letscelebrate.domain.model.Age
@@ -18,6 +20,8 @@ import kotlinx.android.synthetic.main.fragment_birthday.*
 class BirthdayFragment : Fragment() {
     private val viewModel: BirthdayViewModel by activityViewModels()
     private val birthdayFragmentArgs: BirthdayFragmentArgs by navArgs()
+    private lateinit var nav: NavController
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,6 +37,7 @@ class BirthdayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        nav = findNavController()
         setupErrorHandling(viewModel.oError)
         setupUIComponents()
         setupUIOption()
@@ -41,6 +46,7 @@ class BirthdayFragment : Fragment() {
     private fun setupUIComponents() {
         setupAgeIndicator()
         tvTodayNameIs.text = getString(R.string.today_x_old, viewModel.name)
+        bClose.setOnClickListener { nav.navigateUp() }
     }
 
     private fun setupAgeIndicator() {

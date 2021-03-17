@@ -10,4 +10,5 @@
     <color name="elephant_bg">#f9f0d7</color>
     <color name="fox_bg">#c5e8df</color>
     <color name="pelican_bg">#daf1f6</color>
+    <color name="black_12">#1E000000</color>
 </resources>
