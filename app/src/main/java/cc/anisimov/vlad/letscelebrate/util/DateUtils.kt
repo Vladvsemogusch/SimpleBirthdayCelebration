@@ -1,6 +1,5 @@
 package cc.anisimov.vlad.letscelebrate.util
 
-import android.content.Context
 import cc.anisimov.vlad.letscelebrate.domain.model.Age
 import java.util.*
 import java.util.Calendar.DAY_OF_MONTH
@@ -35,5 +34,6 @@ object DateUtils {
         }
         return Age(years, months)
     }
-
 }
+
+

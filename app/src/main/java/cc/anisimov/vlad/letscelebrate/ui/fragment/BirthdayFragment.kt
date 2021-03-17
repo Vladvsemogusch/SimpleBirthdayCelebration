@@ -21,6 +21,7 @@ import cc.anisimov.vlad.letscelebrate.domain.model.Age
 import cc.anisimov.vlad.letscelebrate.domain.viewmodel.BirthdayViewModel
 import cc.anisimov.vlad.letscelebrate.domain.viewmodel.BirthdayViewModel.*
 import cc.anisimov.vlad.letscelebrate.ui.common.setupErrorHandling
+import cc.anisimov.vlad.letscelebrate.util.FileUtils
 import cc.anisimov.vlad.letscelebrate.util.load
 import cc.anisimov.vlad.letscelebrate.util.toPx
 import kotlinx.android.synthetic.main.fragment_birthday.*
@@ -33,6 +34,7 @@ class BirthdayFragment : Fragment() {
     companion object {
         const val CAMERA_VIEW_WIDTH_DP = 32
         const val CAMERA_VIEW_HEIGHT_DP = 32
+        const val SCREENSHOT_FILE_NAME = "temp.jpg"
     }
 
     private val viewModel: BirthdayViewModel by activityViewModels()
@@ -73,8 +75,9 @@ class BirthdayFragment : Fragment() {
             ivChildImage.load(newImageData, imagePlaceholderResId, viewModel.oError, false)
         }
         rlCameraContainer.post { setupCameraButton() }
-        bShare.setOnClickListener { takeCustomScreenshot() }
+        bShare.setOnClickListener { shareScreenshot() }
     }
+
 
     private fun setupAgeIndicator() {
         viewModel.oAge.observe(viewLifecycleOwner) { age: Age? ->
@@ -207,5 +210,11 @@ class BirthdayFragment : Fragment() {
         view.ivClose.visibility = GONE
         view.bShare.visibility = GONE
         //  ivCamera is added programmatically
+    }
+
+    private fun shareScreenshot() {
+        val bitmap = takeCustomScreenshot()
+        val file = FileUtils.storeScreenShot(bitmap, SCREENSHOT_FILE_NAME, requireContext())
+        FileUtils.shareImage(file, requireContext())
     }
 }
